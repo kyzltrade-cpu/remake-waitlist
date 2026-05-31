@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReMake | The Anti-Haul Beauty Revolution</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #faf9f6;
+            color: #1c1c1c;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 480px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+            text-align: center;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        p.subtitle {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #666;
+            margin-bottom: 32px;
+        }
+        .features {
+            text-align: left;
+            margin-bottom: 32px;
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 16px;
+        }
+        .features p {
+            font-size: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .features p:last-child {
+            margin-bottom: 0;
+        }
+        .features p::before {
+            content: "✓";
+            display: inline-block;
+            margin-right: 10px;
+            color: #000;
+            font-weight: bold;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        input[type="email"] {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input[type="email"]:focus {
+            border-color: #1c1c1c;
+        }
+        button {
+            width: 100%;
+            padding: 16px;
+            background-color: #1c1c1c;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #333;
+        }
+        .footer-text {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #999;
+        }
+        #success-msg {
+            display: none;
+            color: #2e7d32;
+            background: #e8f5e9;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stop buying makeup you'll never use.</h1>
+        <p class="subtitle">ReMake is the big sister that tells you when a viral product is actually garbage—and finds your perfect shade using AI that adjusts for awful Sephora lighting.</p>
+        
+        <div class="features">
+            <p>100% Cruelty-free & Vegan verified</p>
+            <p>Zero microplastics or parabens</p>
+            <p>De-influencing the hype cycle</p>
+        </div>
+
+        <form id="waitlist-form">
+            <input type="email" id="email" placeholder="Drop your email..." required>
+            <button type="submit" id="submit-btn">Join the Waitlist</button>
+        </form>
+        
+        <div id="success-msg">You're in. We'll text you when we launch.</div>
+        <p class="footer-text">No spam. Just the truth about your makeup bag.</p>
+    </div>
+
+    <!-- InstantDB SDK -->
+    <script src="https://unpkg.com/@instantdb/core@latest/dist/instantdb.umd.js"></script>
+    <script>
+        // Initialize InstantDB
+        const APP_ID = '3d183980-ff6d-4952-b883-7c3852d7e5b6';
+        
+        // Setup DB - some UMD bundles export 'instantdb' or 'idb'
+        const core = window.instantdb || window.idb || window.InstantDB;
+        const db = core.init({ appId: APP_ID });
+
+        const form = document.getElementById('waitlist-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const successMsg = document.getElementById('success-msg');
+        const emailInput = document.getElementById('email');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = emailInput.value.trim();
+            if (!email) return;
+
+            submitBtn.textContent = 'Joining...';
+            submitBtn.disabled = true;
+
+            try {
+                const id = core.id();
+                
+                await db.transact(
+                    db.tx.waitlist[id].update({
+                        email: email,
+                        createdAt: Date.now()
+                    })
+                );
+
+                form.style.display = 'none';
+                successMsg.style.display = 'block';
+            } catch (err) {
+                console.error('Error saving to waitlist:', err);
+                submitBtn.textContent = 'Error. Try again.';
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
