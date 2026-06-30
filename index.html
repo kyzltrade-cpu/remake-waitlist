@@ -60,6 +60,47 @@
   }
   </script>  
   
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How accurate is the shade matching?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We use advanced spectral color analysis to isolate and identify your exact skin tone from a single photo, calibrating for ambient lighting automatically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it check for custom allergen profiles?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. In your profile settings, you can check off specific allergens (niacinamide, fragrance, denatured alcohol, essential oils) or type custom ones. The engine will instantly highlight them in red upon scanning."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the dupe finder work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our chemical taxonomy matches molecular structures and ingredient distributions. If a $15 drugstore alternative shares 95%+ of the active ingredients, concentration ratios, and carrier bases with a luxury product, we show you the twin match."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this actually better than Sephora's reviews?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sephora reviews are written by sponsored influencers or customers with completely different skin biology. REMAKE is objective, medical-grade, and 100% personalized to your genetic parameters. No bias, just chemistry."
+        }
+      }
+    ]
+  }
+  </script>
+
   <link rel="icon" href="./favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">  
   <link rel="stylesheet" href="./styles.css">  
@@ -122,12 +163,10 @@
     .font-luxury { font-family: 'Cormorant Garamond', serif; }
     .font-light { font-weight: 300; }  
       
-    @media (min-width: 1024px) {
-      body::before {  
-        content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;  
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");  
-        pointer-events: none; z-index: 100;  
-      }
+    body::before {  
+      content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;  
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");  
+      pointer-events: none; z-index: 100;  
     }
 
     .btn-primary, .btn-secondary {  
@@ -323,89 +362,64 @@
       }
     }
 
-    /* Fixed Header Wrapper to prevent Safari mobile sticky offset calculation and Safe Area gaps entirely */
-    body {
-      padding-top: calc(90px + env(safe-area-inset-top)) !important; /* Push normal body content down dynamically, accounting for safe area height */
-    }
-    @media (min-width: 768px) {
-      body {
-        padding-top: 94px !important; /* Desktop has no safe area inset top */
-      }
-    }
+    /* Solid Safe-Area Shield removed for Dynamic Island aesthetic */
 
-    .sticky-header-wrapper {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      z-index: 50 !important;
+    /* Native Sibling Navigation Header & Announcement Bar */
+    .announcement-bar {
+      position: relative;
+      z-index: 60;
       width: 100%;
-      background: #2A2421; /* Cover gap above announcement bar on iOS */
-      -webkit-transform: translateZ(0); /* Force hardware layer in Safari */
-      transform: translateY(0);
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .sticky-header-wrapper.scrolled {
-      transform: translateY(calc(-40px - env(safe-area-inset-top))) !important; /* Slide full announcement bar (including safe area) off-screen */
-    }
-
-    /* Warm Blush Glassmorphism Header */
-    .glass-header {
-      position: relative !important;
-      /* Solid pink linear gradient for the safe area / status bar height, transitioning perfectly to translucent glass below it to permanently eliminate Safari transparent scroll gaps */
-      background: linear-gradient(
-        to bottom,
-        #FFF0F3 0px,
-        #FFF0F3 env(safe-area-inset-top),
-        rgba(255, 250, 251, 0.82) env(safe-area-inset-top),
-        rgba(255, 250, 251, 0.82) 100%
-      ) !important;
-      backdrop-filter: blur(20px) !important;
-      -webkit-backdrop-filter: blur(20px) !important;
-      border-bottom: 1px solid rgba(245, 221, 227, 0.5) !important;
-      box-shadow: 0 4px 30px rgba(42, 36, 33, 0.015), inset 0 1px 0 rgba(255, 255, 255, 0.75) !important;
-      /* padding-top handled by scrolled state only — see .sticky-header-wrapper.scrolled .glass-header below */
-    }
-
-    /* Non-scrolled: glass-header uses simple translucent bg, no safe-area padding */
-    .glass-header {
-      background: rgba(255, 250, 251, 0.82) !important;
-    }
-
-    /* When scrolled, glass-header is at the very top — restore safe area coverage */
-    .sticky-header-wrapper.scrolled .glass-header {
-      padding-top: env(safe-area-inset-top) !important;
-      background: linear-gradient(
-        to bottom,
-        #FFF0F3 0px,
-        #FFF0F3 env(safe-area-inset-top),
-        rgba(255, 250, 251, 0.82) env(safe-area-inset-top),
-        rgba(255, 250, 251, 0.82) 100%
-      ) !important;
-    }
-
-    /* Announcement bar stretches to cover full Dynamic Island / status bar safe area */
-    .sticky-header-wrapper > div:first-child {
       padding-top: env(safe-area-inset-top) !important;
       height: calc(40px + env(safe-area-inset-top)) !important;
+      background: #2A2421;
     }
 
-    /* Solid pink status bar shield to completely cover any Safari mobile sticky scroll gaps with a luxurious, non-transparent barrier */
-    .glass-header::before {
+    /* Pull-down stretch background for the announcement bar on iOS to prevent transparent top gaps */
+    .announcement-bar::before {
       content: "";
       position: absolute;
-      top: -150px;
+      top: -200px;
       left: 0;
       right: 0;
-      height: 150px;
-      background: #FFF0F3 !important; /* Solid premium warm blush pink matching the body bg perfectly */
-      z-index: 1;
+      height: 200px;
+      background: #2A2421;
+      z-index: -1;
       pointer-events: none;
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-      will-change: transform;
     }
+
+
+
+    .main-header {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 50 !important;
+      width: 100%;
+      margin: 0 auto;
+      background: #FFFFFF !important;
+      border: 1px solid transparent !important;
+      border-bottom: 1px solid rgba(245, 221, 227, 0.5) !important;
+      border-radius: 0;
+      box-shadow: 0 4px 20px rgba(42, 36, 33, 0.02) !important;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* Removed Stretched background for the sticky header since dynamic island doesn't need it */
+
+    /* Dynamic Island Header Effect when scrolled */
+    .main-header.stuck {
+      top: calc(0.75rem + env(safe-area-inset-top)) !important;
+      width: calc(100% - 2rem) !important;
+      max-width: 1000px !important;
+      border-radius: 9999px !important;
+      border: 1px solid rgba(245, 221, 227, 0.9) !important;
+      background: rgba(255, 255, 255, 0.85) !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 10px 40px rgba(42, 36, 33, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.6) !important;
+      padding-top: 0 !important;
+    }
+
 
     /* Bulletproof Sticky Header Scroll Offset */
     section[id] {
@@ -446,15 +460,105 @@
       position: relative; overflow: hidden;
     }
     .scan-laser {
-      display: none !important;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(
+        circle at center,
+        rgba(217, 138, 150, 0.15) 0%,
+        rgba(217, 138, 150, 0.02) 50%,
+        rgba(217, 138, 150, 0) 80%
+      );
+      pointer-events: none;
+      z-index: 30;
+      opacity: 0;
+      will-change: opacity;
     }
     .scanning-active .scan-laser {
-      opacity: 1;
+      animation: luxury-glow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    @keyframes scan-loop {
-      0% { top: 0%; }
-      50% { top: 100%; }
-      100% { top: 0%; }
+    @keyframes luxury-glow {
+      0% { opacity: 0; filter: saturate(1.2) brightness(1.05); }
+      30% { opacity: 1; filter: saturate(1.0) brightness(1.0); }
+      75% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    /* Professional Lab Scan Laser (Ultra-Premium Glassmorphic Sweep with Side Flares) */
+    .lab-scan-laser {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* Premium upward-trailing rose gradient + glassmorphic blur trail */
+      background: linear-gradient(
+        to top,
+        rgba(217, 138, 150, 0.12) 0%,
+        rgba(217, 138, 150, 0.05) 15%,
+        rgba(217, 138, 150, 0.01) 40%,
+        rgba(217, 138, 150, 0) 100%
+      );
+      /* Real glassmorphic refraction sweeping over the content under the laser */
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      
+      /* Sharp laser line on the leading bottom edge */
+      border-bottom: 1.5px solid rgba(217, 138, 150, 0.95);
+      pointer-events: none;
+      z-index: 30;
+      opacity: 0;
+      transform: translateY(-100%);
+      will-change: transform, opacity;
+    }
+
+    /* Handcrafted left/right reflection flares where laser meets card boundaries */
+    .lab-scan-laser::before,
+    .lab-scan-laser::after {
+      content: "";
+      position: absolute;
+      bottom: -4px; /* Center perfectly over the 1.5px border-bottom */
+      width: 8px;
+      height: 8px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      box-shadow: 
+        0 0 8px rgba(217, 138, 150, 0.9), 
+        0 0 16px rgba(217, 138, 150, 0.7), 
+        0 0 24px rgba(217, 138, 150, 0.5);
+      z-index: 31;
+    }
+    .lab-scan-laser::before {
+      left: -2px;
+    }
+    .lab-scan-laser::after {
+      right: -2px;
+    }
+
+    .scanning-active .lab-scan-laser {
+      animation: professional-scan 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes professional-scan {
+      0% { opacity: 0; transform: translateY(-100%); }
+      5% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(100%); }
+    }
+    #productShowcaseCard {
+      transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #productShowcaseCard.scanning-active {
+      border-color: var(--rhode-pink) !important;
+    }
+    #labScoreContainer, #labDetailsPanel {
+      transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    #labScoreContainer.lab-loading, #labDetailsPanel.lab-loading {
+      opacity: 0 !important;
+      transform: translateY(4px) !important;
     }
 
     /* Tab styles for the interactive lab */
@@ -506,108 +610,101 @@
   </style>  
 </head>  
 <body class="min-h-screen relative z-10">  
-    
-  <!-- Sticky Header Wrapper (Covers both Announcement Bar and Main Navigation) -->
-  <div class="sticky-header-wrapper">
-    <!-- Top Announcement Bar -->
-    <div class="w-full h-10 bg-[#2A2421] text-[#FFF9F7] text-center text-[10px] md:text-xs font-medium tracking-widest uppercase flex items-center justify-center relative z-[60]">  
-      ELEVATE YOUR LOOKS. JOIN THE PERSONALIZED BEAUTY REVOLUTION TODAY.
-    </div>
-
-    <!-- Main Navigation Header -->
-    <header class="w-full z-40 glass-header">  
-      <div class="max-w-6xl mx-auto px-6 py-2 md:py-2.5 flex items-center justify-between">  
-        <a href="/" class="logo-wrap group">  
-          <img src="./logo.png" alt="REMAKE Logo">  
-          <span class="logo-text">REMAKE</span>  
-        </a>  
-        <nav class="hidden lg:flex items-center gap-8">  
-          <a href="#facial-scan" class="nav-link transition">AI Face Scan</a>  
-          <a href="#interactive-lab" class="nav-link transition">Test Lab</a>  
-          <a href="#comparison" class="nav-link transition">Compare</a>  
-          <a href="#wrapped" class="nav-link transition">Beauty DNA™</a>  
-          <a href="#faq" class="nav-link transition">FAQ</a>  
-        </nav>  
-        <button id="header-cta" class="btn-primary px-3.5 py-1.5 text-[9px] md:px-5 md:py-2 md:text-[10.5px]">Get Early Access</button>  
-      </div>  
-    </header>
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar text-[#FFF9F7] text-center text-[10px] md:text-xs font-medium tracking-widest uppercase flex items-center justify-center relative">  
+    ELEVATE YOUR LOOKS. JOIN THE PERSONALIZED BEAUTY REVOLUTION TODAY.
   </div>
 
+  <!-- Main Navigation Header -->
+  <header class="main-header">  
+    <div class="max-w-6xl mx-auto px-6 py-2 md:py-2.5 flex items-center justify-between">  
+      <a href="/" class="logo-wrap group">  
+        <img src="./logo.png" alt="REMAKE Logo">  
+        <span class="logo-text">REMAKE</span>  
+      </a>  
+      <nav class="hidden lg:flex items-center gap-8">  
+        <a href="#facial-scan" class="nav-link transition">AI Face Scan</a>  
+        <a href="#interactive-lab" class="nav-link transition">Test Lab</a>  
+        <a href="#comparison" class="nav-link transition">Compare</a>  
+        <a href="#wrapped" class="nav-link transition">Beauty DNA™</a>  
+        <a href="#faq" class="nav-link transition">FAQ</a>  
+      </nav>  
+      <a href="#" id="header-cta" class="btn-primary px-3.5 py-1.5 text-[9px] md:px-5 md:py-2 md:text-[10.5px]">Download App</a>  
+    </div>  
+  </header>
+
   <!-- Hero Section -->
-  <section class="w-full flex items-center justify-center px-6 py-6 md:py-8 lg:py-12 hero-bg relative overflow-hidden border-b border-[#F5DDE3]">  
+  <section class="px-6 pt-16 pb-16 md:pt-24 md:pb-24 hero-bg relative overflow-hidden border-b border-[#F5DDE3]">  
     <div class="glow-accent" style="top: 10%; left: 10%;"></div>  
     <div class="glow-accent" style="bottom: 5%; right: 10%;"></div>  
-    <div class="max-w-6xl mx-auto relative z-10 w-full flex flex-col md:flex-row items-center gap-6 md:gap-12 lg:gap-16">  
-      <div class="w-full md:flex-1 text-center md:text-left flex flex-col items-center md:items-start justify-center">  
-        <span class="badge-luxury mb-3 reveal">AI MAKEUP & SKINCARE SCANNER</span>  
-        <h1 class="hero-title text-4xl md:text-6xl mb-4 reveal reveal-delay-1 text-[#2A2421]">  
-          REMAKE.<br><span class="font-luxury text-elegant text-pink-solid">your skin's digital gatekeeper.</span>  
+    <div class="max-w-6xl mx-auto relative z-10 flex flex-col md:flex-row items-center gap-10 md:gap-16">  
+      <div class="flex-1 text-center md:text-left">  
+        <div class="text-[10px] md:text-xs font-semibold tracking-[0.25em] text-[#D98A96] uppercase mb-4 reveal">AI MAKEUP & SKINCARE SCANNER</div>  
+        <h1 class="font-luxury text-5xl md:text-7xl font-light text-[#2A2421] tracking-tight leading-[1.05] mb-6 reveal reveal-delay-1">  
+          REMAKE.<br><span class="text-elegant text-[#D98A96] block mt-2 text-4xl md:text-5xl font-light">your skin's digital gatekeeper.</span>  
         </h1>  
-        <p class="text-base md:text-lg text-[#7C726E] mb-5 max-w-xl font-light leading-relaxed reveal reveal-delay-2">  
+        <p class="text-xs md:text-sm text-[#7C726E]/90 mb-8 max-w-md font-light tracking-wide leading-relaxed reveal reveal-delay-2">  
           Scan your face with our advanced AI to instantly unlock your personalized Beauty DNA™ profile, find your flawless foundation shade match, and screen any beauty barcode for pore-clogging triggers.  
         </p>  
           
-        <form class="waitlist-form flex flex-col sm:flex-row gap-3 max-w-md mb-3 reveal reveal-delay-3">  
-          <input type="email" name="email" placeholder="Your email address" required  
-            class="input-field flex-1"  
-            aria-label="Email address"/>  
-          <button type="submit" class="btn-primary whitespace-nowrap">  
-            <span class="btn-text">Secure Access</span>  
-          </button>  
-          <input type="text" name="_gotcha" style="display:none">  
-          <input type="hidden" name="_subject" value="New REMAKE Waitlist Signup!">  
-        </form>  
-        <p class="form-status hidden"></p>  
+        <div class="flex flex-col sm:flex-row gap-3 max-w-md mb-3 reveal reveal-delay-3">
+          <a href="#" class="btn-primary w-full sm:w-auto text-center px-8 py-3.5 text-xs tracking-[0.18em] uppercase font-semibold rounded-full shadow-[0_4px_20px_rgba(42,36,33,0.12)]">
+            <span class="btn-text">Get REMAKE</span>
+          </a>
+        </div>  
           
-        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3 mt-2 mb-6 reveal">
-          <p class="text-xs text-[#B8ADA9] font-light">Be the next person to get $20 off Remake’s yearly plan. <span class="font-semibold text-[#D98A96]">Only 200 spots left.</span></p>
-        </div>
-          
-        <div class="flex flex-wrap items-center gap-6 text-xs text-[#7C726E] font-medium tracking-wide uppercase reveal justify-center md:justify-start">  
-          <div class="flex items-center gap-2"><span class="font-bold text-[#D98A96]">5.0 Rating</span><span>99.4% Verified Accuracy</span></div>  
-          <span class="hidden sm:inline text-[#F5DDE3]">•</span>  
-          <span>20+ Complex Allergens</span>  
-          <span class="hidden sm:inline text-[#F5DDE3]">•</span>  
-          <span>Cruelty-Free Check</span>  
+        <div class="flex flex-wrap items-center gap-y-3 gap-x-6 text-[9px] md:text-[10px] text-[#7C726E]/80 tracking-[0.22em] uppercase font-semibold reveal justify-center md:justify-start mt-8 pt-6 border-t border-[#F5DDE3]/40">  
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#D98A96]"></span> 5.0 Rating</span>  
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#D98A96]"></span> 99.4% Verified</span>  
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#D98A96]"></span> 20+ Allergens</span>  
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#D98A96]"></span> Cruelty-Free</span>  
         </div>  
       </div>  
         
       <!-- PHOTOREALISTIC ULTRA-PREMIUM IPHONE 15 PRO SHELL (HOUSED VERBATIM AROUND RAW APP SCREENSHOT) -->
-      <div class="w-full md:flex-1 flex justify-center items-center reveal reveal-delay-2 relative py-2 mt-4 md:mt-0">  
-        <div class="relative w-[235px] h-[510px] md:w-[195px] md:h-[422px] lg:w-[220px] lg:h-[476px]">
+      <div class="flex-1 flex justify-center items-center reveal reveal-delay-2 relative py-4">  
+        <div class="relative w-[235px] h-[510px] md:w-[285px] md:h-[618px]">
+          <!-- Premium 3D Cast Shadow (Diagonally down-right like Image 2) -->
+          <div class="absolute top-[4%] left-[6%] w-[96%] h-[95%] bg-[#362722]/35 rounded-[3.2rem] md:rounded-[3.8rem] blur-[24px] md:blur-[32px] transform translate-x-6 translate-y-6 pointer-events-none z-0"></div>
+          
+          <!-- Ambient Contact Shadow (Inner tight glow) -->
+          <div class="absolute inset-[3px] bg-black/20 rounded-[2.8rem] md:rounded-[3.3rem] blur-[8px] md:blur-[12px] pointer-events-none z-0"></div>
+          
           <!-- Left Side Buttons (Volume Rockers + Ring Switcher) -->
-          <div class="absolute top-[80px] -left-[3px] w-[3px] h-6 bg-gradient-to-b from-zinc-700 to-zinc-800 rounded-l shadow-[inset_1px_1px_1px_rgba(255,255,255,0.1)]"></div>
-          <div class="absolute top-[120px] -left-[3px] w-[3px] h-[34px] bg-gradient-to-b from-zinc-700 to-zinc-800 rounded-l shadow-[inset_1px_1px_1px_rgba(255,255,255,0.1)]"></div>
-          <div class="absolute top-[170px] -left-[3px] w-[3px] h-[34px] bg-gradient-to-b from-zinc-700 to-zinc-800 rounded-l shadow-[inset_1px_1px_1px_rgba(255,255,255,0.1)]"></div>
+          <div class="absolute top-[80px] -left-[3px] w-[3px] h-6 bg-gradient-to-b from-zinc-700 to-zinc-800 rounded-l shadow-[inset_1px_1px_1px_rgba(255,255,255,0.1)] z-10"></div>
+          <div class="absolute top-[120px] -left-[3px] w-[3px] h-[34px] bg-gradient-to-b from-zinc-700 to-zinc-800 rounded-l shadow-[inset_1px_1px_1px_rgba(255,255,255,0.1)] z-10"></div>
+          <div class="absolute top-[170px] -left-[3px] w-[3px] h-[34px] bg-gradient-to-b from-zinc-700 to-zinc-800 rounded-l shadow-[inset_1px_1px_1px_rgba(255,255,255,0.1)] z-10"></div>
           
           <!-- Right Side Power/Action Button -->
-          <div class="absolute top-[110px] -right-[3px] w-[3px] h-[50px] bg-gradient-to-b from-zinc-700 to-zinc-800 rounded-r shadow-[inset_-1px_1px_1px_rgba(255,255,255,0.1)]"></div>
+          <div class="absolute top-[110px] -right-[3px] w-[3px] h-[50px] bg-gradient-to-b from-zinc-700 to-zinc-800 rounded-r shadow-[inset_-1px_1px_1px_rgba(255,255,255,0.1)] z-10"></div>
 
-          <!-- Main Bezel Frame: Luxurious Brushed Natural Titanium -->
-          <div class="w-full h-full p-[3px] rounded-[2.4rem] md:rounded-[2.4rem] lg:rounded-[2.8rem] bg-gradient-to-tr from-[#8a8479] via-[#d6d2c4] to-[#a39e93] shadow-[0_30px_70px_rgba(42,36,33,0.38)] ring-1 ring-[#e5e0d4]/40">
-            <!-- Inner bezel: Slim deep-black bezel margin -->
-            <div class="w-full h-full p-[6px] md:p-[6px] lg:p-[7px] rounded-[2.2rem] md:rounded-[2.2rem] lg:rounded-[2.6rem] bg-zinc-950 border border-zinc-900">
-              <!-- Screen Container -->
-              <div class="relative w-full h-full rounded-[1.6rem] md:rounded-[1.6rem] lg:rounded-[2.0rem] overflow-hidden bg-black flex items-center justify-center">
+          <!-- Main Bezel Frame: Luxurious Brushed Natural Titanium with chamfer highlight -->
+          <div class="relative z-10 w-full h-full p-[1.5px] rounded-[2.6rem] md:rounded-[3.1rem] bg-gradient-to-br from-[#eae5da] via-[#bdae9c] to-[#4d463b] shadow-[inset_0_1px_2px_rgba(255,255,255,0.4)]">
+            <div class="w-full h-full p-[2.5px] rounded-[2.5rem] md:rounded-[3rem] bg-gradient-to-br from-[#c8bfae] via-[#928876] to-[#363127] shadow-[0_4px_10px_rgba(0,0,0,0.15)]">
+              <!-- Inner bezel: Slim deep-black bezel margin -->
+              <div class="w-full h-full p-[6px] md:p-[7px] rounded-[2.4rem] md:rounded-[2.9rem] bg-zinc-950 border border-[#1a1917] relative">
                 
+                <!-- Left physical metal frame glint (light reflection) -->
+                <div class="absolute top-[2%] left-[1px] w-[1px] h-[96%] bg-gradient-to-b from-white/50 via-white/10 to-transparent opacity-80 z-20 pointer-events-none rounded-full"></div>
                 
+                <!-- Screen Container -->
+                <div class="relative w-full h-full rounded-[1.8rem] md:rounded-[2.2rem] overflow-hidden bg-black flex items-center justify-center">
+                  <!-- Real Apple iOS Status Bar Overlay -->
+                  <div class="absolute top-0 left-0 w-full h-8 px-5 pt-3.5 flex justify-between items-center text-[9px] md:text-[10px] text-white font-semibold font-sans tracking-wide z-40 pointer-events-none select-none">
+                  </div>
 
-                
-                <!-- Real Apple iOS Status Bar Overlay -->
-                <div class="absolute top-0 left-0 w-full h-8 px-5 pt-3.5 flex justify-between items-center text-[9px] md:text-[10px] text-white font-semibold font-sans tracking-wide z-40 pointer-events-none select-none">
+                  <!-- Real Apple iOS Home Indicator bar -->
+                  <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[35%] h-[4px] bg-white/70 rounded-full z-45 pointer-events-none"></div>
+
+                  <!-- Diagonal Screen Glare reflection -->
+                  <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/3 to-white/10 pointer-events-none z-30"></div>
+
+                  <!-- Active laser line -->
+                  <div class="scan-laser opacity-70"></div>
+
+                  <!-- Raw screenshot image -->
+                  <img src="./mockup-scanner-raw.jpg" alt="REMAKE Skincare Barcode Scanner raw screenshot inside premium shell" class="w-full h-full object-cover">
                 </div>
-
-                <!-- Real Apple iOS Home Indicator bar -->
-                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[35%] h-[4px] bg-white/70 rounded-full z-45 pointer-events-none"></div>
-
-                <!-- Diagonal Screen Glare reflection -->
-                <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/12 pointer-events-none z-30"></div>
-
-                <!-- Active laser line -->
-                <div class="scan-laser opacity-70"></div>
-
-                <!-- Raw screenshot image -->
-                <img src="./mockup-scanner-raw.jpg" alt="REMAKE Skincare Barcode Scanner raw screenshot inside premium shell" class="w-full h-full object-cover">
               </div>
             </div>
           </div>
@@ -659,25 +756,25 @@
         <div class="lg:col-span-7">
           <div id="productShowcaseCard" class="card-luxury p-8 flex flex-col md:flex-row gap-8 items-center relative min-h-[380px]">
             <!-- Subtle laser line overlays for scan effect -->
-            <div class="scan-laser" id="labLaser"></div>
+            <div class="lab-scan-laser" id="labLaser"></div>
             
             <!-- Left Display: Dynamic Rating & State -->
-            <div class="flex-shrink-0 text-center flex flex-col items-center">
+            <div class="flex-shrink-0 text-center flex flex-col items-center" id="labScoreContainer">
               <div class="relative w-36 h-36 flex items-center justify-center mb-6">
                 <svg class="score-ring w-full h-full" viewBox="0 0 100 100">
                   <circle cx="50" cy="50" r="42" fill="none" stroke="#F5DDE3" stroke-width="5"/>
                   <circle id="labScorePath" cx="50" cy="50" r="42" fill="none" stroke="#D98A96" stroke-width="6" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="15"/>
                 </svg>
                 <div class="absolute inset-0 flex flex-col items-center justify-center">
-                  <div class="font-sans font-bold text-6xl text-[#2A2421] tracking-tight mt-2" id="labScoreText">94</div>
-                  <div class="text-[10px] uppercase tracking-widest text-[#7C726E] font-medium -mt-1">score</div>
+                  <div class="font-serif font-medium lining-nums text-6xl md:text-7xl text-[#2A2421] leading-none tracking-tight" style="margin-top: -16px !important;" id="labScoreText">94</div>
+                  <div class="text-[10px] uppercase tracking-widest text-[#7C726E] font-medium" style="margin-top: 6px !important;">score</div>
                 </div>
               </div>
               <div id="labSafetyBadge" class="scan-badge-safe">Skin Safe</div>
             </div>
 
             <!-- Right Display: Detailed Bio-Chemical Report -->
-            <div class="flex-1 w-full text-left">
+            <div class="flex-1 w-full text-left" id="labDetailsPanel">
               <div class="mb-4">
                 <h3 class="font-serif text-2xl text-[#2A2421]" id="labProductName">Peptide Glazing Fluid</h3>
                 <p class="text-xs text-pink-400 font-light uppercase tracking-widest mt-0.5" id="labProductBrand">Rhode Skin</p>
@@ -687,22 +784,26 @@
                 Excellent lightweight hydration. Fully acne-safe and barrier-supporting. Ideal for the Glazed Canvas aesthetic. Contains 0 pore cloggers.
               </p>
               
-              <div class="space-y-2 border-t border-[#F5DDE3] pt-4 text-xs">
-                <div class="flex justify-between items-center py-1">
-                  <span class="text-[#7C726E]">Allergens:</span>
-                  <span class="font-medium" id="labAllergenText">Fragrance-Free</span>
+              <div class="space-y-1 sm:space-y-2.5 border-t border-[#F5DDE3] pt-4 text-xs">
+                <!-- Allergens -->
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2 sm:py-1 border-b border-[#F5DDE3]/30 sm:border-b-0 last:border-b-0">
+                  <span class="text-[9px] uppercase tracking-wider text-[#A09590] font-bold sm:normal-case sm:text-xs sm:text-[#7C726E] sm:font-light sm:tracking-normal mb-1 sm:mb-0">Allergens:</span>
+                  <span class="text-sm sm:text-xs font-semibold text-[#2A2421]" id="labAllergenText">Fragrance-Free</span>
                 </div>
-                <div class="flex justify-between items-center py-1">
-                  <span class="text-[#7C726E]">Undertone matching:</span>
-                  <span class="font-medium text-[#6E8E75]" id="labShadeText">Universal Glaze</span>
+                <!-- Undertone Matching -->
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2 sm:py-1 border-b border-[#F5DDE3]/30 sm:border-b-0 last:border-b-0">
+                  <span class="text-[9px] uppercase tracking-wider text-[#A09590] font-bold sm:normal-case sm:text-xs sm:text-[#7C726E] sm:font-light sm:tracking-normal mb-1 sm:mb-0">Undertone matching:</span>
+                  <span class="text-sm sm:text-xs font-semibold text-[#6E8E75]" id="labShadeText">Universal Glaze</span>
                 </div>
-                <div class="flex justify-between items-center py-1">
-                  <span class="text-[#7C726E]">Safety Risk:</span>
-                  <span class="font-bold text-[#6E8E75]" id="labRiskText">Safe (0 Cloggers)</span>
+                <!-- Safety Risk -->
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2 sm:py-1 border-b border-[#F5DDE3]/30 sm:border-b-0 last:border-b-0">
+                  <span class="text-[9px] uppercase tracking-wider text-[#A09590] font-bold sm:normal-case sm:text-xs sm:text-[#7C726E] sm:font-light sm:tracking-normal mb-1 sm:mb-0">Safety Risk:</span>
+                  <span class="text-sm sm:text-xs font-bold text-[#6E8E75]" id="labRiskText">Safe (0 Cloggers)</span>
                 </div>
-                <div class="flex justify-between items-center py-1">
-                  <span class="text-[#7C726E]">Ethics & Sourcing:</span>
-                  <span class="font-medium" id="labEthicsText">Cruelty-Free, Vegan</span>
+                <!-- Ethics & Sourcing -->
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2 sm:py-1 border-b border-[#F5DDE3]/30 sm:border-b-0 last:border-b-0">
+                  <span class="text-[9px] uppercase tracking-wider text-[#A09590] font-bold sm:normal-case sm:text-xs sm:text-[#7C726E] sm:font-light sm:tracking-normal mb-1 sm:mb-0">Ethics & Sourcing:</span>
+                  <span class="text-sm sm:text-xs font-semibold text-[#2A2421]" id="labEthicsText">Cruelty-Free, Vegan</span>
                 </div>
               </div>
             </div>
@@ -788,8 +889,8 @@
                 <p id="compLuxProduct" class="text-xs text-[#7C726E] font-light">Hollywood Flawless Filter</p>
               </div>
               <div class="text-right">
-                <span id="compLuxScore" class="text-3xl font-serif text-red-500 block">38</span>
-                <span class="text-[8px] uppercase text-[#7C726E] tracking-wider font-light">Score</span>
+                <span id="compLuxScore" class="font-luxury font-light text-5xl md:text-6xl text-[#2A2421] block leading-none lining-nums not-italic">38</span>
+                <span class="text-[8px] uppercase text-[#7C726E] tracking-widest font-light block mt-1">Score</span>
               </div>
             </div>
             
@@ -798,27 +899,27 @@
 
             <!-- Detailed Chemical breakdown -->
             <div class="space-y-3.5 my-6 text-xs">
-              <div class="flex justify-between py-1 border-b border-red-100/50">
-                <span class="text-[#7C726E]">Primary Carrier:</span>
-                <span id="compLuxCarrier" class="font-medium text-red-600">Ethylhexyl Palmitate</span>
+              <div class="grid grid-cols-12 gap-2 items-baseline py-1 border-b border-red-100/50">
+                <span class="col-span-5 text-[#7C726E]">Primary Carrier:</span>
+                <span id="compLuxCarrier" class="col-span-7 font-medium text-red-600 text-right">Ethylhexyl Palmitate</span>
               </div>
-              <div class="flex justify-between py-1 border-b border-red-100/50">
-                <span class="text-[#7C726E]">Comedogenic Rating:</span>
-                <span id="compLuxRating" class="font-bold text-red-600">4/5 (Extreme Clog Risk)</span>
+              <div class="grid grid-cols-12 gap-2 items-baseline py-1 border-b border-red-100/50">
+                <span class="col-span-5 text-[#7C726E]">Comedogenic Rating:</span>
+                <span id="compLuxRating" class="col-span-7 font-bold text-red-600 text-right">4/5 (Extreme Clog Risk)</span>
               </div>
-              <div class="flex justify-between py-1 border-b border-red-100/50">
-                <span class="text-[#7C726E]">Key Allergens:</span>
-                <span id="compLuxAllergens" class="font-medium text-red-600">Bismuth Oxychloride</span>
+              <div class="grid grid-cols-12 gap-2 items-baseline py-1 border-b border-red-100/50">
+                <span class="col-span-5 text-[#7C726E]">Key Allergens:</span>
+                <span id="compLuxAllergens" class="col-span-7 font-medium text-red-600 text-right">Bismuth Oxychloride</span>
               </div>
-              <div class="flex justify-between py-1 border-b border-red-100/50">
-                <span class="text-[#7C726E]">Endocrine Disruptors:</span>
-                <span id="compLuxEndo" class="font-medium text-[#7C726E]">Trace synthetic preservatives</span>
+              <div class="grid grid-cols-12 gap-2 items-baseline py-1 border-b border-red-100/50">
+                <span class="col-span-5 text-[#7C726E]">Endocrine Disruptors:</span>
+                <span id="compLuxEndo" class="col-span-7 font-medium text-red-600 text-right">Trace synthetic preservatives</span>
               </div>
             </div>
           </div>
 
           <div class="p-4 rounded-xl bg-red-100/40 border border-red-100 text-xs text-red-800 font-light mt-4">
-            <p id="compLuxVerdict">**Verdict:** Contains heavy comedogenic waxes and irritants that seal dead skin cells. Highly comedogenic: triggers severe breakout cycles on acne-prone or sensitive skin.</p>
+            <p id="compLuxVerdict"><strong class="font-bold">Verdict:</strong> Contains heavy comedogenic waxes and irritants that seal dead skin cells. Highly comedogenic: triggers severe breakout cycles on acne-prone or sensitive skin.</p>
           </div>
         </div>
 
@@ -834,8 +935,8 @@
                 <p id="compSafeProduct" class="text-xs text-[#7C726E] font-light">Halo Glow Liquid Filter</p>
               </div>
               <div class="text-right">
-                <span id="compSafeScore" class="text-3xl font-serif text-[#6E8E75] block">96</span>
-                <span class="text-[8px] uppercase text-[#7C726E] tracking-wider font-light">Score</span>
+                <span id="compSafeScore" class="font-luxury font-light text-5xl md:text-6xl text-[#2A2421] block leading-none lining-nums not-italic">96</span>
+                <span class="text-[8px] uppercase text-[#7C726E] tracking-widest font-light block mt-1">Score</span>
               </div>
             </div>
             
@@ -844,27 +945,27 @@
 
             <!-- Detailed Chemical breakdown -->
             <div class="space-y-3.5 my-6 text-xs">
-              <div class="flex justify-between py-1 border-b border-emerald-100/50">
-                <span class="text-[#7C726E]">Primary Carrier:</span>
-                <span id="compSafeCarrier" class="font-medium text-[#6E8E75]">Squalane, Glycerin</span>
+              <div class="grid grid-cols-12 gap-2 items-baseline py-1 border-b border-emerald-100/50">
+                <span class="col-span-5 text-[#7C726E]">Primary Carrier:</span>
+                <span id="compSafeCarrier" class="col-span-7 font-medium text-[#6E8E75] text-right">Squalane, Glycerin</span>
               </div>
-              <div class="flex justify-between py-1 border-b border-emerald-100/50">
-                <span class="text-[#7C726E]">Comedogenic Rating:</span>
-                <span id="compSafeRating" class="font-bold text-[#6E8E75]">0/5 (Non-comedogenic)</span>
+              <div class="grid grid-cols-12 gap-2 items-baseline py-1 border-b border-emerald-100/50">
+                <span class="col-span-5 text-[#7C726E]">Comedogenic Rating:</span>
+                <span id="compSafeRating" class="col-span-7 font-bold text-[#6E8E75] text-right">0/5 (Non-comedogenic)</span>
               </div>
-              <div class="flex justify-between py-1 border-b border-emerald-100/50">
-                <span class="text-[#7C726E]">Key Allergens:</span>
-                <span id="compSafeAllergens" class="font-medium text-[#6E8E75]">None (Fragrance-Free)</span>
+              <div class="grid grid-cols-12 gap-2 items-baseline py-1 border-b border-emerald-100/50">
+                <span class="col-span-5 text-[#7C726E]">Key Allergens:</span>
+                <span id="compSafeAllergens" class="col-span-7 font-medium text-[#6E8E75] text-right">None (Fragrance-Free)</span>
               </div>
-              <div class="flex justify-between py-1 border-b border-emerald-100/50">
-                <span class="text-[#7C726E]">Endocrine Disruptors:</span>
-                <span id="compSafeEndo" class="font-medium text-[#6E8E75]">0 (Clean verified)</span>
+              <div class="grid grid-cols-12 gap-2 items-baseline py-1 border-b border-emerald-100/50">
+                <span class="col-span-5 text-[#7C726E]">Endocrine Disruptors:</span>
+                <span id="compSafeEndo" class="col-span-7 font-medium text-[#6E8E75] text-right">0 (Clean verified)</span>
               </div>
             </div>
           </div>
 
           <div class="p-4 rounded-xl bg-emerald-100/40 border border-emerald-100 text-xs text-emerald-800 font-light mt-4">
-            <p id="compSafeVerdict">**Verdict:** Extremely clean, light texture base that respects your skin lipid barrier. Hydrates with squalane and delivers identical luxury glow safely.</p>
+            <p id="compSafeVerdict"><strong class="font-bold">Verdict:</strong> Extremely clean, light texture base that respects your skin lipid barrier. Hydrates with squalane and delivers identical luxury glow safely.</p>
           </div>
         </div>
 
@@ -1025,18 +1126,12 @@
     <div class="max-w-2xl mx-auto relative z-10">  
       <span class="text-[10px] tracking-widest uppercase text-white/90 font-bold mb-4 block">SECURE PRIORITY SECTOR ACCESS</span>
       <h2 class="hero-title text-4xl md:text-5xl mb-6">Stop guessing. Start knowing.</h2>  
-      <p class="text-white/80 mb-10 font-light leading-relaxed max-w-lg mx-auto">Join our private beta waitlist today. Stop ruining your skin barrier and burning your wallet on bad products.</p>  
-        
-      <form class="waitlist-form flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-4">  
-        <input type="email" name="email" placeholder="Your email address" required  
-          class="input-field flex-1 bg-[#FFF9F7] text-[#2A2421] border-[#E8A0AA]"  
-          aria-label="Email address"/>  
-        <button type="submit" class="btn-primary whitespace-nowrap !bg-[#2A2421] !text-white !border-[#2A2421] hover:!bg-white hover:!text-[#D98A96] hover:!border-white">  
-          <span class="btn-text">Protect My Skin</span>  
-        </button>  
-        <input type="text" name="_gotcha" style="display:none">  
-        <input type="hidden" name="_subject" value="New REMAKE Waitlist Signup!">  
-      </form>  
+      <p class="text-white/80 mb-10 font-light leading-relaxed max-w-lg mx-auto">Stop ruining your skin barrier and burning your wallet on bad products. Download REMAKE today.</p>  
+      <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-4">  
+        <a href="#" class="btn-primary w-full text-center bg-white text-[#2A2421] border-white hover:bg-pink-100 hover:text-[#2A2421]">
+          Download on the App Store
+        </a>
+      </div>  
       <p class="form-status text-center hidden" style="color: rgba(255,255,255,0.9);"></p>  
         
       <p class="text-xs text-white/60 mt-6 font-light">Your skin data remains encrypted. No spam. Unsubscribe anytime.</p>  
@@ -1082,7 +1177,32 @@
       <p>© 2026 REMAKE Labs Inc. All rights reserved.</p>  
       <p class="mt-3 md:mt-0">Designed in California • Crafted for skin barrier safety</p>  
     </div>  
-  </footer>
+  
+    <!-- Science-Backed Product Teardowns Directory for Google Indexing -->
+    <div class="max-w-6xl mx-auto mt-12 pt-8 border-t border-[#F5DDE3]/60">
+      <div class="font-semibold mb-6 text-[10px] uppercase tracking-widest text-[#2A2421] font-sans">Chemical Audits & Skin Barrier Safety Teardowns</div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-3 text-[11px] font-light text-[#7C726E] font-sans">
+        <a href="/products/elf-halo-glow-liquid-filter-acne-safe.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">e.l.f. Halo Glow Liquid Filter Chemical Audit</a>
+        <a href="/products/laneige-lip-sleeping-mask-toxic-ingredients.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Laneige Lip Sleeping Mask Chemical Audit</a>
+        <a href="/products/dior-lip-glow-oil-ingredients.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Dior Addict Lip Glow Oil Chemical Audit</a>
+        <a href="/products/charlotte-tilbury-flawless-filter-acne-safe.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Charlotte Tilbury Flawless Filter Chemical Audit</a>
+        <a href="/products/cerave-daily-moisturizing-lotion-breakouts.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">CeraVe Daily Moisturizing Lotion Chemical Audit</a>
+        <a href="/products/glossier-cloud-paint-acne-safe.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Glossier Cloud Paint Blush Chemical Audit</a>
+        <a href="/products/benefit-porefessional-primer-toxic.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Benefit POREfessional Primer Chemical Audit</a>
+        <a href="/products/maybelline-fit-me-matte-poreless-ingredients.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Maybelline Fit Me Foundation Chemical Audit</a>
+        <a href="/products/huda-beauty-easy-bake-powder-toxic.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Huda Beauty Easy Bake Powder Chemical Audit</a>
+        <a href="/products/drunk-elephant-lala-retro-acne.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Drunk Elephant Lala Retro Cream Chemical Audit</a>
+        <a href="/products/glow-recipe-watermelon-glow-toner-allergens.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Glow Recipe Watermelon Toner Chemical Audit</a>
+        <a href="/products/supergoop-unseen-sunscreen-toxic-filters.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Supergoop! Unseen Sunscreen Chemical Audit</a>
+        <a href="/products/saie-slip-tint-acne-safe.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Saie Slip Tint Moisturizer Chemical Audit</a>
+        <a href="/products/mac-studio-fix-fluid-toxic.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">M·A·C Studio Fix Fluid Chemical Audit</a>
+        <a href="/products/estee-lauder-double-wear-ingredients.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Estée Lauder Double Wear Chemical Audit</a>
+        <a href="/products/kosas-revealer-concealer-mold.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Kosas Revealer Concealer Chemical Audit</a>
+        <a href="/products/fenty-beauty-pro-filtr-acne-safe.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Fenty Beauty Pro Filt'r Foundation Chemical Audit</a>
+        <a href="/products/sol-de-janeiro-bum-bum-cream-toxic.html" class="hover:underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Sol de Janeiro Bum Bum Cream Chemical Audit</a>
+      </div>
+    </div>
+</footer>
 
   <!-- Full Scan Modal - MAKEUP SCAN REPORT -->  
   <div id="scanModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="scan-title">  
@@ -1270,33 +1390,12 @@
         
       <div class="pt-6 border-t border-[#F5DDE3] text-center">  
         <p class="text-sm text-[#7C726E] font-light mb-4">Want your custom clinical makeup scan?</p>  
-        <button id="scanToWaitlist" class="btn-primary w-full">Join Waitlist</button>  
+        <a href="#" class="btn-primary w-full text-center block">Download App</a>  
       </div>  
     </div>  
   </div>
 
-  <!-- Waitlist Popup Modal -->  
-  <div id="waitlistModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="waitlist-title">  
-    <div class="modal-content card-luxury p-8 md:p-10 !bg-[var(--rhode-white)]">  
-      <div class="flex items-center justify-between mb-6">  
-        <h3 id="waitlist-title" class="section-title text-2xl text-[#2A2421]">Get Early Access</h3>  
-        <button id="closeWaitlistModal" class="border border-[#F5DDE3] bg-white/40 h-8 w-8 rounded-full flex items-center justify-center text-[#2A2421] hover:bg-[#F5DDE3]/20 transition cursor-pointer text-sm" aria-label="Close">
-          ×
-        </button>  
-      </div>  
-      <p class="text-sm text-[#7C726E] font-light mb-6">Be one of the next 200 to join and get $20 off your first year. Spots are filling fast.</p>  
-      <form id="waitlistForm" class="space-y-4">  
-        <input type="email" name="email" placeholder="Enter your email" required class="input-field w-full" aria-label="Email address"/>  
-        <button type="submit" class="btn-primary w-full">  
-          <span class="btn-text">Join Waitlist</span>  
-        </button>  
-        <input type="text" name="_gotcha" style="display:none">  
-        <input type="hidden" name="_subject" value="New REMAKE Product Scan Signup!">  
-      </form>  
-      <p id="waitlistStatus" class="form-status text-center hidden"></p>  
-      <p class="text-xs text-[#B8ADA9] mt-4 font-light text-center">By joining, you agree to our <a href="#" class="underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Terms</a> and <a href="#" class="underline hover:text-[#2A2421] transition decoration-[#E8A0AA]">Privacy Policy</a>.</p>  
-    </div>  
-  </div>
+  
 
   <!-- Interactive Lab Javascript Data and Core Logic -->
   <script>
@@ -1379,55 +1478,84 @@
     }
 
     let selectProductTimeout = null;
+    let fadeOutTimeout = null;
+
+    // Helper to count up the score number elegantly
+    function animateScoreCountUp(targetScore) {
+      const scoreObj = document.getElementById('labScoreText');
+      if (!scoreObj) return;
+      
+      let startScore = parseInt(scoreObj.textContent) || 0;
+      if (startScore === targetScore) startScore = 0; // Reset if same
+      
+      let startTimestamp = null;
+      const duration = 500; // 500ms count-up duration matching fade-in
+      
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        // After Effects-style Ease-Out Expo curve (snappy initial rush with ultra-smooth deceleration)
+        const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const currentScore = Math.floor(startScore + (targetScore - startScore) * easeProgress);
+        scoreObj.textContent = currentScore;
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          scoreObj.textContent = targetScore; // Final hard lock
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
 
     function selectProduct(key) {
-      // Clear any pending transition timeout to prevent overlapping runs!
-      if (selectProductTimeout) {
-        clearTimeout(selectProductTimeout);
-      }
+      // Clear any pending transition timeouts to prevent overlapping runs!
+      if (selectProductTimeout) clearTimeout(selectProductTimeout);
+      if (fadeOutTimeout) clearTimeout(fadeOutTimeout);
 
-      // Manage tab state
+      // Manage tab state instantly
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       const activeTab = document.getElementById('tab-' + key);
       if (activeTab) activeTab.classList.add('active');
       
-      // Toggle scan laser line animation
-      const card = document.getElementById('productShowcaseCard');
-      card.classList.add('scanning-active');
+      // Fetch product data
+      const prod = productData[key];
+      if (!prod) return;
       
-      // Beautiful fade-out of content during the scan for a premium feel
-      const contentElements = card.querySelectorAll(':not(.scan-laser)');
-      contentElements.forEach(el => {
-        el.style.transition = 'opacity 0.25s ease-out';
-        el.style.opacity = '0.2';
-      });
-
-      // Play our high-fashion sparkle chime!
-      if (window.playSparkleSound) {
-        window.playSparkleSound();
-      } else {
-        // Fallback chirp
-        try {
-          const ctx = new (window.AudioContext || window.webkitAudioContext)();
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(2200, ctx.currentTime);
-          gain.gain.setValueAtTime(0.04, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start();
-          osc.stop(ctx.currentTime + 0.1);
-        } catch(e) {}
+      // Get core panels
+      const scoreContainer = document.getElementById('labScoreContainer');
+      const detailsPanel = document.getElementById('labDetailsPanel');
+      const card = document.getElementById('productShowcaseCard');
+      
+      // Phase 1: Begin high-performance scan effect & fade-out existing values
+      if (scoreContainer && detailsPanel) {
+        scoreContainer.classList.add('lab-loading');
+        detailsPanel.classList.add('lab-loading');
       }
       
-      selectProductTimeout = setTimeout(() => {
-        // Fetch product data
-        const prod = productData[key];
-        if (!prod) return;
-        
-        // Populate layout
+      // Restart the laser line animation reliably
+      card.classList.remove('scanning-active');
+      void card.offsetWidth; // Force reflow
+      card.classList.add('scanning-active');
+      
+      // Play scanner entry audio (fast triangle-wave click)
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1000, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.02, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.1);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.1);
+      } catch(e) {}
+
+      // Phase 2: At exactly 350ms (when laser sweeps past the upper half), swap the data & fade back in
+      fadeOutTimeout = setTimeout(() => {
+        // Populate layout values
         document.getElementById('labProductName').textContent = prod.name;
         document.getElementById('labProductBrand').textContent = prod.brand;
         document.getElementById('labProductDesc').textContent = prod.description;
@@ -1436,25 +1564,79 @@
         document.getElementById('labRiskText').textContent = prod.risk;
         document.getElementById('labEthicsText').textContent = prod.ethics;
         
+        // Dynamically style the text colors based on product safety status (no hardcoded static greens!)
+        const riskTextEl = document.getElementById('labRiskText');
+        const shadeTextEl = document.getElementById('labShadeText');
+        if (key === 'char') {
+          // High Risk (Red theme)
+          riskTextEl.className = "text-sm sm:text-xs font-bold text-[#C96F6F]";
+          shadeTextEl.className = "text-sm sm:text-xs font-semibold text-[#C96F6F]";
+        } else if (key === 'fenty') {
+          // Warning/Low-Risk (Amber/Orange theme)
+          riskTextEl.className = "text-sm sm:text-xs font-bold text-amber-600";
+          shadeTextEl.className = "text-sm sm:text-xs font-semibold text-[#6E8E75]";
+        } else {
+          // Derm Approved / Skin Safe (Green theme)
+          riskTextEl.className = "text-sm sm:text-xs font-bold text-[#6E8E75]";
+          shadeTextEl.className = "text-sm sm:text-xs font-semibold text-[#6E8E75]";
+        }
+        
         // Set Badge class & text
         const badge = document.getElementById('labSafetyBadge');
         badge.textContent = prod.badge;
         badge.className = prod.badgeClass;
         
-        // Trigger rating animation
+        // Trigger rating ring path animation
         const path = document.getElementById('labScorePath');
+        path.style.transition = 'stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
         path.style.strokeDashoffset = prod.scoreOffset;
-        document.getElementById('labScoreText').textContent = prod.score;
         
-        // Fade content back in gracefully
-        contentElements.forEach(el => {
-          el.style.transition = 'opacity 0.35s ease-in';
-          el.style.opacity = '1';
-        });
+        // Trigger count-up animation
+        animateScoreCountUp(prod.score);
 
-        // Remove scanner beam state
+        // Remove loading state with high-performance ease-out transition
+        if (scoreContainer && detailsPanel) {
+          scoreContainer.classList.remove('lab-loading');
+          detailsPanel.classList.remove('lab-loading');
+        }
+
+        // Play premium iOS-sparkle chime arpeggio
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          
+          // First chime (warmer base tone)
+          const osc1 = ctx.createOscillator();
+          const gain1 = ctx.createGain();
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(1400, ctx.currentTime);
+          gain1.gain.setValueAtTime(0.015, ctx.currentTime);
+          gain1.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
+          osc1.connect(gain1);
+          gain1.connect(ctx.destination);
+          osc1.start();
+          osc1.stop(ctx.currentTime + 0.3);
+          
+          // Second chime (higher harmonic highlight, offset by 70ms)
+          setTimeout(() => {
+            try {
+              const osc2 = ctx.createOscillator();
+              const gain2 = ctx.createGain();
+              osc2.type = 'sine';
+              osc2.frequency.setValueAtTime(2100, ctx.currentTime);
+              gain2.gain.setValueAtTime(0.01, ctx.currentTime);
+              gain2.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.35);
+              osc2.connect(gain2);
+              gain2.connect(ctx.destination);
+              osc2.start();
+              osc2.stop(ctx.currentTime + 0.35);
+            } catch(err) {}
+          }, 70);
+        } catch(e) {}
+      }, 350);
+      
+      selectProductTimeout = setTimeout(() => {
         card.classList.remove('scanning-active');
-      }, 550); // Sleeker 550ms timing for maximum snappiness
+      }, 1200);
     }
 
     // Dynamic Barcode Scan simulation with real beep!
@@ -1764,6 +1946,12 @@
       const data = comparisonData[key];
       if (!data) return;
 
+      // Helper to format simple markdown bold tags
+      const formatMarkdown = (txt) => {
+        if (!txt) return "";
+        return txt.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold">$1</strong>');
+      };
+
       // Update Lux side
       document.getElementById('compLuxName').textContent = data.luxName;
       document.getElementById('compLuxProduct').textContent = data.luxProduct;
@@ -1773,7 +1961,7 @@
       document.getElementById('compLuxRating').textContent = data.luxRating;
       document.getElementById('compLuxAllergens').textContent = data.luxAllergens;
       document.getElementById('compLuxEndo').textContent = data.luxEndo;
-      document.getElementById('compLuxVerdict').innerHTML = data.luxVerdict;
+      document.getElementById('compLuxVerdict').innerHTML = formatMarkdown(data.luxVerdict);
 
       // Update Safe side
       document.getElementById('compSafeName').textContent = data.compSafeName || data.safeName;
@@ -1784,7 +1972,7 @@
       document.getElementById('compSafeRating').textContent = data.compSafeRating || data.safeRating;
       document.getElementById('compSafeAllergens').textContent = data.compSafeAllergens || data.safeAllergens;
       document.getElementById('compSafeEndo').textContent = data.compSafeEndo || data.safeEndo;
-      document.getElementById('compSafeVerdict').innerHTML = data.compSafeVerdict || data.safeVerdict;
+      document.getElementById('compSafeVerdict').innerHTML = formatMarkdown(data.compSafeVerdict || data.safeVerdict);
     }
 
     // Beauty Profiler Archetypes Data Logic
@@ -1881,100 +2069,13 @@
       // Setup quote slide loop
       setInterval(cycleQuotes, 7000);
 
-      // Web3Forms Submit Handling (Extremely Robust)
-      const handleFormSubmit = (form) => {
-        if (form.dataset.handled === 'true') return;
-        form.dataset.handled = 'true';
 
-        const statusEl = form.classList.contains('waitlist-form') ? form.nextElementSibling : document.getElementById('waitlistStatus');
-        const btn = form.querySelector('button[type="submit"]');
-        const btnText = btn.querySelector('.btn-text') || btn;
-        const original = btnText.textContent;
-        let isSubmitting = false;
-
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          if (isSubmitting) return;
-          isSubmitting = true;
-          btn.disabled = true;
-          const originalHTML = btnText.innerHTML;
-          btnText.innerHTML = '<span class="spinner"></span>';
-          statusEl.className = 'form-status hidden';
-
-          const emailInput = form.querySelector('input[name="email"]');
-          const email = emailInput ? emailInput.value : '';
-
-          try {
-            const res = await fetch('https://api.web3forms.com/submit', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Accept': 'application/json'
-              },
-              body: new URLSearchParams({
-                access_key: "4344ced8-a05a-423d-b08e-1f8945ef9e81",
-                email: email,
-                subject: "New REMAKE Waitlist Signup",
-                from_name: "REMAKE Waitlist"
-              })
-            });
-
-            const data = await res.json();
-
-            if (data.success) {
-              if (window.playEarlyAccessSparkle) window.playEarlyAccessSparkle();
-              btnText.textContent = '✓ JOINED';
-              statusEl.textContent = "You're on the list. Redirecting...";
-              statusEl.className = 'form-status success';
-              form.reset();
-              setTimeout(() => {
-                const redirectUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '') + '/success.html';
-                window.location.href = redirectUrl;
-              }, 800);
-            } else {
-              throw new Error(data.message || 'Request failed');
-            }
-          } catch (err) {
-            console.error(err);
-            // Fallback to native submission
-            form.action = "https://api.web3forms.com/submit";
-            form.method = "POST";
-            
-            const redirectUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '') + '/success.html';
-
-            const fields = {
-              "access_key": "4344ced8-a05a-423d-b08e-1f8945ef9e81",
-              "subject": "New REMAKE Waitlist Signup",
-              "from_name": "REMAKE Waitlist",
-              "redirect": redirectUrl
-            };
-            
-            for (const [key, value] of Object.entries(fields)) {
-              if (!form.querySelector(`input[name="${key}"]`)) {
-                const input = document.createElement("input");
-                input.type = "hidden";
-                input.name = key;
-                input.value = value;
-                form.appendChild(input);
-              }
-            }
-            
-            form.querySelectorAll('input[name="_gotcha"], input[name="_subject"]').forEach(el => el.remove());
-            form.submit();
-          } finally {
-            isSubmitting = false;
-            btn.disabled = false;
-            statusEl.classList.remove('hidden');
-          }
-        });
-      };
-
-      document.querySelectorAll('.waitlist-form, #waitlistForm').forEach(handleFormSubmit);
+      
 
       // Modal control logic for the "Full Analysis" report modal
       const scanModal = document.getElementById('scanModal');
       const closeScanModal = document.getElementById('closeScanModal');
-      const scanToWaitlist = document.getElementById('scanToWaitlist');
+      
       const viewFullScanBtnPhone = document.getElementById('viewFullScanBtnPhone');
       const viewFullScanBtnMain = document.getElementById('viewFullScanBtnMain');
 
@@ -2010,34 +2111,7 @@
         if (e.target === scanModal) closeScanModalFn();
       });
 
-      // Waitlist Modal Controls
-      const waitlistModal = document.getElementById('waitlistModal');
-      const closeWaitlistModal = document.getElementById('closeWaitlistModal');
-      const headerCta = document.getElementById('header-cta');
-
-      const openWaitlistModal = () => {
-        if (!waitlistModal) return;
-        waitlistModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        if (window.playEarlyAccessSparkle) window.playEarlyAccessSparkle();
-      };
-
-      const closeWaitlistModalFn = () => {
-        if (!waitlistModal) return;
-        waitlistModal.classList.remove('active');
-        document.body.style.overflow = '';
-      };
-
-      headerCta?.addEventListener('click', openWaitlistModal);
-      closeWaitlistModal?.addEventListener('click', closeWaitlistModalFn);
-      waitlistModal?.addEventListener('click', (e) => {
-        if (e.target === waitlistModal) closeWaitlistModalFn();
-      });
-
-      scanToWaitlist?.addEventListener('click', () => {
-        closeScanModalFn();
-        openWaitlistModal();
-      });
+      
 
       // Interactive Beauty DNA autoplay slide logic
       let currentWrappedSlideIdx = 1;
@@ -2252,9 +2326,7 @@
               </div>
             </div>
             <div class="text-center pt-2">
-              <button onclick="document.querySelector('.waitlist-form')?.scrollIntoView({ behavior: 'smooth', block: 'center' })" class="w-full bg-[#2A2421] hover:bg-[#D98A96] text-white py-3 rounded-full text-xs font-bold uppercase tracking-widest transition duration-300 shadow-sm">
-                Join the Beta Waitlist
-              </button>
+              <a href="#" class="w-full inline-block text-center bg-[#2A2421] hover:bg-[#D98A96] text-white py-3 rounded-full text-xs font-bold uppercase tracking-widest transition duration-300 shadow-sm">Download App</a>
             </div>
           `
         }
@@ -2413,59 +2485,98 @@
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           closeScanModalFn();
-          closeWaitlistModalFn();
+          
         }
       });
 
-      // Stat counter scroll-into-view animation
+      // Stat counter scroll-into-view animation with bulletproof fallbacks
       const animateCounters = () => {
         const counters = document.querySelectorAll('.stat-counter');
         
-        const observer = new IntersectionObserver((entries, obs) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const targetEl = entry.target;
-              const targetVal = parseFloat(targetEl.getAttribute('data-target'));
-              const format = targetEl.getAttribute('data-format') || '';
-              const suffix = targetEl.getAttribute('data-suffix') || '';
-              
-              const startTime = performance.now();
-              const duration = 1000; // Snappy, clean 1.0 second duration!
-              
-              const updateCounter = (nowTime) => {
-                const elapsed = nowTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                
-                // Beautiful ease-out cubic curve (starts fast, slows down with extreme grace)
-                const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-                const currentVal = targetVal * easeOutCubic;
-                
-                let displayVal = '';
-                if (format === 'comma') {
-                  displayVal = Math.floor(currentVal).toLocaleString();
-                } else if (format === 'decimal') {
-                  displayVal = currentVal.toFixed(1);
-                } else {
-                  displayVal = Math.floor(currentVal);
-                }
-                
-                targetEl.textContent = displayVal + suffix;
-                
-                if (progress < 1) {
-                  requestAnimationFrame(updateCounter);
-                } else {
-                  // Ensure it locks exactly to the target value at the end of transition
-                  targetEl.textContent = (format === 'comma' ? targetVal.toLocaleString() : targetVal) + suffix;
-                }
-              };
-              
+        const triggerCounter = (targetEl) => {
+          if (targetEl.dataset.animated === 'true') return;
+          targetEl.dataset.animated = 'true';
+          
+          const targetVal = parseFloat(targetEl.getAttribute('data-target'));
+          const format = targetEl.getAttribute('data-format') || '';
+          const suffix = targetEl.getAttribute('data-suffix') || '';
+          
+          const startTime = performance.now();
+          const duration = 1000; // Snappy, clean 1.0 second duration!
+          
+          const updateCounter = (nowTime) => {
+            const elapsed = nowTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Beautiful ease-out cubic curve (starts fast, slows down with extreme grace)
+            const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+            const currentVal = targetVal * easeOutCubic;
+            
+            let displayVal = '';
+            if (format === 'comma') {
+              displayVal = Math.floor(currentVal).toLocaleString();
+            } else if (format === 'decimal') {
+              displayVal = currentVal.toFixed(1);
+            } else {
+              displayVal = Math.floor(currentVal);
+            }
+            
+            targetEl.textContent = displayVal + suffix;
+            
+            if (progress < 1) {
               requestAnimationFrame(updateCounter);
-              obs.unobserve(targetEl); // trigger only once
+            } else {
+              // Ensure it locks exactly to the target value at the end of transition
+              targetEl.textContent = (format === 'comma' ? targetVal.toLocaleString() : targetVal) + suffix;
+            }
+          };
+          
+          requestAnimationFrame(updateCounter);
+        };
+
+        // 1. Primary path: IntersectionObserver (threshold 0 for instant entry response)
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                triggerCounter(entry.target);
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0 });
+          counters.forEach(counter => observer.observe(counter));
+        }
+
+        // 2. Fallback path A: Bounding box scroll-check (for devices with strict/blocked observers)
+        const checkVisibility = () => {
+          let allDone = true;
+          counters.forEach(counter => {
+            if (counter.dataset.animated !== 'true') {
+              allDone = false;
+              const rect = counter.getBoundingClientRect();
+              const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+              if (isVisible) {
+                triggerCounter(counter);
+              }
             }
           });
-        }, { threshold: 0.1 });
-        
-        counters.forEach(counter => observer.observe(counter));
+          if (allDone) {
+            window.removeEventListener('scroll', checkVisibility);
+            window.removeEventListener('resize', checkVisibility);
+          }
+        };
+        window.addEventListener('scroll', checkVisibility, { passive: true });
+        window.addEventListener('resize', checkVisibility, { passive: true });
+        checkVisibility(); // run initial check
+
+        // 3. Fallback path B: Fail-safe timer (after 2.5 seconds, trigger all to eliminate any headless/loading slop)
+        setTimeout(() => {
+          counters.forEach(counter => {
+            if (counter.dataset.animated !== 'true') {
+              triggerCounter(counter);
+            }
+          });
+        }, 2500);
       };
       
       animateCounters();
@@ -2478,16 +2589,27 @@
         });  
       });  
 
-      // Ultra-smooth high-performance fixed header scroll state handler
-      const headerWrapper = document.querySelector('.sticky-header-wrapper');
-      if (headerWrapper) {
-        window.addEventListener('scroll', () => {
-          if (window.scrollY > 20) {
-            headerWrapper.classList.add('scrolled');
+      // Ultra-smooth native sticky header scroll state handler and dynamic iOS theme-color matching
+      const mainHeader = document.querySelector('.main-header');
+      const announcementBar = document.querySelector('.announcement-bar');
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
+      if (mainHeader) {
+        const updateHeaderScroll = () => {
+          const threshold = announcementBar ? announcementBar.offsetHeight : 40;
+          if (window.scrollY > threshold) {
+            mainHeader.classList.add('stuck');
+            if (themeMeta && themeMeta.getAttribute('content') !== '#FFFFFF') {
+              themeMeta.setAttribute('content', '#FFFFFF');
+            }
           } else {
-            headerWrapper.classList.remove('scrolled');
+            mainHeader.classList.remove('stuck');
+            if (themeMeta && themeMeta.getAttribute('content') !== '#2A2421') {
+              themeMeta.setAttribute('content', '#2A2421');
+            }
           }
-        }, { passive: true });
+        };
+        window.addEventListener('scroll', updateHeaderScroll, { passive: true });
+        updateHeaderScroll(); // run initial check
       }
     });
   </script>
