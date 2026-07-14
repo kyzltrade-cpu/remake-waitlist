@@ -1,0 +1,27 @@
+# Remake
+
+Remake is the premium iOS skincare and makeup barcode scanning app. It empowers consumers to make healthy, acne-safe decisions by checking cosmetics formulas for toxic, comedogenic, or hidden allergen ingredients with 100% objective consumer trust.
+
+## Core Capabilities
+
+- **Cosmetic Barcode Scanner:** Scan barcodes of makeup, foundation, skincare, or moisturizers to instantly reveal complete chemical ingredient profiles.
+- **Acne-Safe Ingredient Checker:** Aggressive, evidence-backed warnings identifying comedogenic ingredients, pore-cloggers, and barrier-disrupting chemicals.
+- **Toxic Chemical Filter:** Highlights endocrine disruptors, suspected carcinogens, hidden allergens, and contact irritants.
+- **Custom Shade & Surface Analyzer:** Analyzes facial surface features and undertones for optimal foundation and color matching.
+- **Objective Ratings:** Strictly objective rating system based on official INCI ingredient lists, with no corporate bias or brand sponsorships.
+
+## App Access & Pricing
+
+Remake operates on a **hard paywall model with zero free tier**. All features, including scanning, database lookups, and shade-matching, require an active premium subscription immediately following initial onboarding.
+
+- **Weekly Access:** $4.99 / week (includes full access, infinite scans, and shade match)
+- **Monthly Access:** $14.99 / month (recurring subscription)
+- **Annual Membership:** $59.99 / year (highest savings)
+
+All billing and subscription cycles are secured natively through Apple In-App Purchases (IAP) integrated via RevenueCat.
+
+## Pages & Context
+
+- [Waitlist Page](https://remake.beauty/) — Main waitlist page featuring the finalized pink (#D98A96) score ring and signups via Web3Forms.
+- [Terms of Service](https://remake.beauty/terms.html) — Legal agreement guidelines.
+- [Privacy Policy](https://remake.beauty/privacy.html) — Secure data transmission policies.
