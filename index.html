@@ -617,8 +617,8 @@
         <span class="logo-text">REMAKE</span>  
       </a>  
       <nav class="hidden lg:flex items-center gap-8">  
-        <a href="#facial-scan" class="nav-link transition">AI Face Scan</a>  
-        <a href="#interactive-lab" class="nav-link transition">Test Lab</a>  
+        <a href="#facial-scan" class="nav-link transition">Improve My Look</a>  
+        <a href="#interactive-lab" class="nav-link transition">Find Products</a>  
         <a href="#comparison" class="nav-link transition">Compare</a>  
         <a href="#wrapped" class="nav-link transition">Beauty DNA™</a>  
         <a href="#faq" class="nav-link transition">FAQ</a>  
@@ -708,13 +708,53 @@
   </section>
 
   <!-- Interactive Lab: Expose the Ingredients -->
-  <section id="interactive-lab" class="py-12 md:py-16 px-6 bg-[var(--rhode-white)] border-b border-[#F5DDE3] relative overflow-hidden">
+  <section id="facial-scan" class="py-12 md:py-16 px-6 bg-[var(--rhode-white)] border-b border-[#F5DDE3] relative overflow-hidden">
+    <div class="glow-accent" style="top: 15%; left: 5%;"></div>
+    <div class="max-w-4xl mx-auto relative z-10 text-center">
+      
+      <span class="badge-luxury mb-6 mx-auto">MODE 1: IMPROVE MY LOOK</span>
+      <h2 class="section-title text-3xl md:text-5xl mb-4">
+        Improve My Look.<br><span class="font-luxury text-elegant text-pink-solid">upload, score, and perfect.</span>
+      </h2>
+      <p class="text-xs text-[#7C726E] mb-12 uppercase tracking-widest font-semibold max-w-xl mx-auto">
+        Upload or capture a photo of the finished makeup and receive a score plus prioritized corrections.
+      </p>
+      
+      <!-- 3-Column Luxury Features Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-left">
+        <div class="card-luxury p-6 bg-white/60">
+          <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold mb-4">1</div>
+          <h4 class="font-serif text-lg text-[#2A2421] mb-2">Capture Finished Makeup</h4>
+          <p class="text-xs text-[#7C726E] font-light leading-relaxed">Upload or snap a quick photo of your finished makeup to instantly analyze your routine.</p>
+        </div>
+        
+        <div class="card-luxury p-6 bg-white/60">
+          <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold mb-4">2</div>
+          <h4 class="font-serif text-lg text-[#2A2421] mb-2">Receive Your Score</h4>
+          <p class="text-xs text-[#7C726E] font-light leading-relaxed">Get an immediate score on your complexion blending, symmetry, and overall look.</p>
+        </div>
+        
+        <div class="card-luxury p-6 bg-white/60">
+          <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold mb-4">3</div>
+          <h4 class="font-serif text-lg text-[#2A2421] mb-2">Prioritized Corrections</h4>
+          <p class="text-xs text-[#7C726E] font-light leading-relaxed">Follow simple prioritized visual corrections to perfect your look.</p>
+        </div>
+      </div>
+
+      <button id="viewFullScanBtnMain" class="btn-primary mx-auto">
+        <span>See Face & Makeup Scan</span>
+      </button>
+
+    </div>
+  </section>
+
+<section id="interactive-lab" class="py-12 md:py-16 px-6 bg-[var(--rhode-white)] border-b border-[#F5DDE3] relative overflow-hidden">
     <div class="glow-accent" style="top: -10%; right: -5%;"></div>
     <div class="max-w-5xl mx-auto relative z-10">
       <div class="text-center mb-8 md:mb-10">
-        <span class="badge-luxury mb-4">INTERACTIVE WIDGET</span>
-        <h2 class="section-title text-3xl md:text-5xl mb-4">Try the Scan Yourself</h2>
-        <p class="text-[#7C726E] font-light max-w-lg mx-auto">Select a product below to see how our scanner instantly spots pore-clogging ingredients and toxic chemicals.</p>
+        <span class="badge-luxury mb-4">MODE 2: FIND MY PRODUCTS</span>
+        <h2 class="section-title text-3xl md:text-5xl mb-4">Find My Products</h2>
+        <p class="text-[#7C726E] font-light max-w-lg mx-auto">Scan a product or search for one to see shade compatibility, ingredient compatibility, finish, price, and suitability for your unique profile.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -808,58 +848,12 @@
     </div>
   </section>
 
-
-
-  <!-- AI Facial Scan Section -->
-  <section id="facial-scan" class="py-12 md:py-16 px-6 bg-[var(--rhode-white)] border-b border-[#F5DDE3] relative overflow-hidden">
-    <div class="glow-accent" style="top: 15%; left: 5%;"></div>
-    <div class="max-w-4xl mx-auto relative z-10 text-center">
-      
-      <span class="badge-luxury mb-6 mx-auto">AI MAKEUP ANALYSIS</span>
-      <h2 class="section-title text-3xl md:text-5xl mb-4">
-        The AI Face Scan.<br><span class="font-luxury text-elegant text-pink-solid">perfecting your look in seconds.</span>
-      </h2>
-      <p class="text-xs text-[#7C726E] mb-12 uppercase tracking-widest font-semibold max-w-xl mx-auto">
-        Your phone's camera is now your private beauty coach.
-      </p>
-      
-      <!-- 3-Column Luxury Features Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-left">
-        <div class="card-luxury p-6 bg-white/60">
-          <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold mb-4">1</div>
-          <h4 class="font-serif text-lg text-[#2A2421] mb-2">Scan Your Makeup</h4>
-          <p class="text-xs text-[#7C726E] font-light leading-relaxed">Snap a quick photo of your face or scan any product barcode to analyze your routine instantly.</p>
-        </div>
-        
-        <div class="card-luxury p-6 bg-white/60">
-          <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold mb-4">2</div>
-          <h4 class="font-serif text-lg text-[#2A2421] mb-2">Get Feedback</h4>
-          <p class="text-xs text-[#7C726E] font-light leading-relaxed">Instantly check your complexion blending, brow/liner symmetry, and flag pore-clogging ingredients.</p>
-        </div>
-        
-        <div class="card-luxury p-6 bg-white/60">
-          <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold mb-4">3</div>
-          <h4 class="font-serif text-lg text-[#2A2421] mb-2">Polish & Touch Up</h4>
-          <p class="text-xs text-[#7C726E] font-light leading-relaxed">Follow simple visual guides to perfect your symmetry, flawless blending, and exact shade match.</p>
-        </div>
-      </div>
-
-      <button id="viewFullScanBtnMain" class="btn-primary mx-auto">
-        <span>See Face & Makeup Scan</span>
-      </button>
-
-    </div>
-  </section>
-
-
-
-  <!-- Side-by-Side Product Comparison Section -->
-  <section id="comparison" class="py-12 md:py-16 px-6 bg-[#FDF0EC] border-b border-[#F5DDE3] relative overflow-hidden">
+<section id="comparison" class="py-12 md:py-16 px-6 bg-[#FDF0EC] border-b border-[#F5DDE3] relative overflow-hidden">
     <div class="glow-accent" style="bottom: -15%; right: 5%; background: radial-gradient(circle, rgba(253,168,189,0.12) 0%, transparent 70%);"></div>
     <div class="max-w-5xl mx-auto relative z-10 text-center">
-      <span class="badge-luxury mb-4">PRODUCT COMPARISON</span>
-      <h2 class="section-title text-3xl md:text-5xl mb-4">Compare Popular Products</h2>
-      <p class="text-[#7C726E] font-light max-w-lg mx-auto mb-8 md:mb-10">Compare trending products side-by-side. See exactly why one bottle ruins your skin while another keeps it safe.</p>
+      <span class="badge-luxury mb-4">MODE 3: COMPARE</span>
+      <h2 class="section-title text-3xl md:text-5xl mb-4">Compare Products</h2>
+      <p class="text-[#7C726E] font-light max-w-lg mx-auto mb-8 md:mb-10">Compare two or more products based on your personal needs—not just generic ratings.</p>
 
       <!-- Matchup Selector Toggles -->
       <div class="flex flex-wrap justify-center gap-3 mb-10">
